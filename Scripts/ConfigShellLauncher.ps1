@@ -15,14 +15,17 @@ $DoNothing = 3
 $CustomReturnCodes = @(0, 59, 1067, 13859)
 $CustomReturnCodesAction = @($ShutdownDevice, $RestartDevice, $RestartShell, $RestartDevice)
 $DefaultAction = $DoNothing
+
 #Replace hogehoge by intended user name
 $CustomUserSID = Get-UsernameSID("hogehoge")
 $CustomShellPath = "C:\Programs\ShellLauncherTester\bin\Release\ShellLauncherTester.exe"
+
 #Reset Shell Launcher
 $ShellLauncherClass.RemoveCustomShell($AdminsSID)
 $ShellLauncherClass.RemoveCustomShell($CustomUserSID)
 $ShellLauncherClass.SetEnabled($FALSE)
-#Configure Shell Launcher
+
+#Configure Shell Launcher
 $ShellLauncherClass.SetDefaultShell("explorer.exe", $RestartShell)
 $ShellLauncherClass.SetCustomShell($CustomUserSID, $CustomShellPath,  $CustomReturnCodes,  $CustomReturnCodesAction, $DefaultAction)
 $ShellLauncherClass.SetCustomShell($AdminsSID, "explorer.exe")
